@@ -50,7 +50,7 @@ conda install jupyter polars numpy pandas pyarrow plotly matplotlib seaborn scip
 conda install stanza nltk spacy unidecode -c conda-forge
 
 # Install dependencies for machine learning (scikit-learn and pytorch)
-conda install scikit-learn gensim 'scipy<1.3' -c conda-forge
+conda install scikit-learn -c conda-forge
 
 # For PyTorch, recommend checking for your specific setup at: https://pytorch.org
 conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch-nightly -c nvidia
