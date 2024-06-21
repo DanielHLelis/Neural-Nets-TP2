@@ -37,15 +37,21 @@ class BoWDataset(Dataset):
         self.tokens = df[token_column]
         self.target = df[target_column]
         self.vocab_index = vocab_index
+        self.cache = {}
 
     def __len__(self):
         return len(self.tokens)
 
     def __getitem__(self, index):
-        return {
+        if index in self.cache:
+            return self.cache[index]
+
+        self.cache[index] = {
             "data": torch.tensor(
                 encode_tokens(self.tokens[index], self.vocab_index), 
                 dtype=torch.float32,
             ),
             "target": torch.tensor(self.target[index], dtype=torch.float32),
         }
+
+        return self.cache[index]

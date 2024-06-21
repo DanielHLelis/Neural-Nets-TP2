@@ -56,12 +56,16 @@ class EmbeddingDataset(Dataset):
         self.embeddings = embeddings
         self.emb_dim = emb_dim
         self.seq_len = seq_len
+        self.cache = {}
 
     def __len__(self):
         return len(self.tokens)
 
     def __getitem__(self, index):
-        return {
+        if index in self.cache:
+            return self.cache[index]
+
+        self.cache[index] = {
             "data": torch.tensor(
                 encode_tokens(self.tokens[index], embeddings=self.embeddings, 
                               emb_dim=self.emb_dim, seq_len=self.seq_len), 
@@ -69,3 +73,5 @@ class EmbeddingDataset(Dataset):
             ),
             "target": torch.tensor(self.target[index], dtype=torch.float32),
         }
+
+        return self.cache[index]

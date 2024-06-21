@@ -49,7 +49,7 @@ def checkpoint_handler(
             "optimizer_state_dict": optimizer.state_dict(),
             "loss": current_loss,
         },
-        os.path.join(checkpoint_path, f"checkpoint_{current_epoch}.pt"),
+        os.path.join(checkpoint_path, f"checkpoint.pt"),
     )
 
 def train_epochs(
